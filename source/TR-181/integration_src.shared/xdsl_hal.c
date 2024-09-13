@@ -810,7 +810,9 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
         return RETURN_ERR;
     }
 
-    CcspTraceDebug(("JSON Response message = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
+    FILE* fd = fopen("/tmp/Response_file.txt", "w+");
+    fprintf(fd,"JSON Response message = %s \n", json_object_to_json_string_ext(jreply_msg,JSON_C_TO_STRING_PRETTY));
+    fclose(fd);
 
     if (json_object_object_get_ex(jreply_msg, JSON_RPC_FIELD_PARAMS, &jparams))
     {
