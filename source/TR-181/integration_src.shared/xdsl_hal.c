@@ -279,7 +279,7 @@ int xdsl_hal_dslGetLineEnable( hal_param_t *req_param )
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jresponse_msg) != RETURN_OK)
     {
@@ -294,6 +294,8 @@ int xdsl_hal_dslGetLineEnable( hal_param_t *req_param )
         FREE_JSON_OBJECT(jmsg);
         return RETURN_ERR;
     }
+
+    CcspTraceError(("Got Json response \n = %s \n", json_object_to_json_string_ext(jresponse_msg, JSON_C_TO_STRING_SPACED)));
 
     rc = json_hal_get_param(jresponse_msg, 0, GET_RESPONSE_MESSAGE, &resp_param);
     if (rc != RETURN_OK)
@@ -336,7 +338,7 @@ int xdsl_hal_dslGetLineStandardUsed( hal_param_t *req_param, int line_index)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jresponse_msg) != RETURN_OK)
     {
@@ -382,7 +384,7 @@ int xdsl_hal_dslSetLineEnable( hal_param_t *req_msg )
     CHECK(jmsg);
 
     json_hal_add_param(jmsg, SET_REQUEST_MESSAGE, req_msg);
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
@@ -439,7 +441,7 @@ int xdsl_hal_dslSetLineEnableDataGathering(hal_param_t *req_msg)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK )
     {
         CcspTraceInfo(("[%s][%d] RPC message failed \n", __FUNCTION__, __LINE__));
@@ -796,7 +798,7 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
     if (json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK )
     {
         CcspTraceError(("[%s][%d] RPC message failed \n", __FUNCTION__, __LINE__));
@@ -810,7 +812,7 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
         return RETURN_ERR;
     }
 
-    CcspTraceDebug(("JSON Response message = %s \n", json_object_to_json_string_ext(jreply_msg,JSON_C_TO_STRING_PRETTY)));
+    CcspTraceDebug(("JSON Response message = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
 
     if (json_object_object_get_ex(jreply_msg, JSON_RPC_FIELD_PARAMS, &jparams))
     {
@@ -1128,7 +1130,7 @@ ANSC_STATUS xtm_hal_getLinkInfo(int lineNo, PDML_PTM pPtmLink)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_SPACED)));
 
     if (json_hal_client_send_and_get_reply(jrequest, &jreply_msg) == RETURN_ERR)
     {
@@ -1136,7 +1138,7 @@ ANSC_STATUS xtm_hal_getLinkInfo(int lineNo, PDML_PTM pPtmLink)
         return ANSC_STATUS_FAILURE;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Response message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jreply_msg,JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Response message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
 
     rc = get_ptm_link_info(jreply_msg, pPtmLink);
     if (rc != ANSC_STATUS_SUCCESS)
@@ -1188,7 +1190,7 @@ ANSC_STATUS atm_hal_getLinkInfo(int lineNo, PDML_ATM pAtmLink)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_SPACED)));
 
     if (json_hal_client_send_and_get_reply(jrequest, &jreply_msg) == RETURN_ERR)
     {
@@ -1196,7 +1198,7 @@ ANSC_STATUS atm_hal_getLinkInfo(int lineNo, PDML_ATM pAtmLink)
         return ANSC_STATUS_FAILURE;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Response message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jreply_msg,JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Response message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
 
     rc = get_atm_link_info(jreply_msg, pAtmLink);
     if (rc != ANSC_STATUS_SUCCESS)
@@ -1411,7 +1413,7 @@ int xdsl_hal_dslGetLineStats(int lineNo, PDML_XDSL_LINE_STATS pstLineStats)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
@@ -1713,7 +1715,7 @@ int xdsl_hal_dslGetChannelInfo(int channelNo, PDML_XDSL_CHANNEL pstChannelInfo)
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
@@ -1867,7 +1869,7 @@ int xdsl_hal_dslGetChannelStats(int channelNo, PDML_XDSL_CHANNEL_STATS pstChanne
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK )
     {
@@ -2090,7 +2092,7 @@ int xdsl_hal_dslGetXRdk_Nlm( PDML_XDSL_X_RDK_NLNM pstNlmInfo )
         return RETURN_ERR;
     }
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
         CcspTraceError(("[%s][%d] RPC message failed \n", __FUNCTION__, __LINE__));
@@ -2270,7 +2272,7 @@ static ANSC_STATUS get_link_info(hal_param_t *get_param)
     jrequest = create_json_request_message(GET_REQUEST_MESSAGE, get_param->name, NULL_TYPE , NULL);
     CHECK(jrequest != NULL);
 
-    CcspTraceInfo(("%s - %d Json request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s - %d Json request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jrequest, JSON_C_TO_STRING_SPACED)));
 
     if (json_hal_client_send_and_get_reply(jrequest, &jreply_msg) == RETURN_ERR)
     {
@@ -2279,7 +2281,7 @@ static ANSC_STATUS get_link_info(hal_param_t *get_param)
     }
 
     CHECK(jreply_msg != NULL);
-    CcspTraceInfo(("Got Json response \n = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("Got Json response \n = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
 
     if (json_hal_get_param(jreply_msg, JSON_RPC_PARAM_ARR_INDEX, GET_RESPONSE_MESSAGE, &param) != RETURN_OK)
     {
@@ -2714,7 +2716,7 @@ ANSC_STATUS atm_hal_setLinkInfoParam(PDML_ATM config)
         param.type = PARAM_UNSIGNED_INTEGER;
         json_hal_add_param(jmsg, SET_REQUEST_MESSAGE, &param);
     }
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
@@ -2845,7 +2847,7 @@ ANSC_STATUS atm_hal_startAtmLoopbackDiagnostics(PDML_ATM_DIAG pDiag)
     param.type = PARAM_UNSIGNED_INTEGER;
     json_hal_add_param(jmsg, SET_REQUEST_MESSAGE, &param);
 
-    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s-%d: JSON Request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if( json_hal_client_send_and_get_reply(jmsg, &jreply_msg) != RETURN_OK)
     {
@@ -2878,7 +2880,7 @@ ANSC_STATUS atm_hal_startAtmLoopbackDiagnostics(PDML_ATM_DIAG pDiag)
     jmsg = create_json_request_message(GET_REQUEST_MESSAGE, ATM_LINK_DIAGNOSTICS, NULL_TYPE , NULL);
     CHECK(jmsg != NULL);
 
-    CcspTraceInfo(("%s - %d Json request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("%s - %d Json request message = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jmsg, JSON_C_TO_STRING_SPACED)));
 
     if (json_hal_client_send_and_get_reply(jmsg, &jreply_msg) == RETURN_ERR)
     {
@@ -2887,7 +2889,7 @@ ANSC_STATUS atm_hal_startAtmLoopbackDiagnostics(PDML_ATM_DIAG pDiag)
     }
 
     CHECK(jreply_msg != NULL);
-    CcspTraceInfo(("Got Json response \n = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_PRETTY)));
+    CcspTraceInfo(("Got Json response \n = %s \n", json_object_to_json_string_ext(jreply_msg, JSON_C_TO_STRING_SPACED)));
 
     total_param_count = json_hal_get_total_param_count(jreply_msg);
 
