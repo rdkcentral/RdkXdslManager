@@ -179,6 +179,7 @@ DmlXdslInit
 // Initialize sysevent daemon
     if (DmlXdslSyseventInit() < 0)
     {
+        CcspTraceError(("%s - %d : Failed to initialise sysevent daemon\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -233,6 +234,7 @@ DmlXdslLineInit
     //Return failure if allocation failiure
     if( NULL == pXDSLLineTmp )
     {
+        CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -468,6 +470,7 @@ static ANSC_STATUS DmlXdslGetParamNames( char *pComponent, char *pBus, char *pPa
       free_parameterInfoStruct_t(bus_handle, nval, retInfo);
     }
 
+    CcspTraceError(("%s - %d : Failed to get XDSL Dm Parameter Names\n", __FUNCTION__, __LINE__));
     return ANSC_STATUS_FAILURE;
 }
 
@@ -513,6 +516,7 @@ static ANSC_STATUS DmlXdslGetParamValues( char *pComponent, char *pBus, char *pP
        free_parameterValStruct_t (bus_handle, nval, retVal);
     }
 
+    CcspTraceError(("%s - %d : Failed to get XDSL Dm Parameter Values\n", __FUNCTION__, __LINE__));
     return ANSC_STATUS_FAILURE;
 }
 
@@ -586,7 +590,8 @@ static ANSC_STATUS DmlXdslGetLowerLayersInstanceInOtherAgent( XDSL_NOTIFY_ENUM e
 
             if( 0 >= iTotalNoofEntries )
             {
-               return ANSC_STATUS_SUCCESS;
+	       CcspTraceError(("%s - %d : Invalid Number of Entries\n", __FUNCTION__, __LINE__));
+               return ANSC_STATUS_FAILURE;
             }
 
             //Traverse from loop
@@ -627,6 +632,7 @@ static ANSC_STATUS DmlXdslGetLowerLayersInstanceInOtherAgent( XDSL_NOTIFY_ENUM e
 
             if( 0 >= iTotalNoofEntries )
             {
+	       CcspTraceError(("%s - %d : Invalid Number of Entries\n", __FUNCTION__, __LINE__));
                return ANSC_STATUS_FAILURE;
             }
             //Traverse from loop
@@ -669,6 +675,7 @@ static ANSC_STATUS DmlXdslGetLowerLayersInstanceInOtherAgent( XDSL_NOTIFY_ENUM e
 
             if( 0 >= iTotalNoofEntries )
             {
+	       CcspTraceError(("%s - %d : Invalid Number of Entries\n", __FUNCTION__, __LINE__));
                return ANSC_STATUS_FAILURE;
             }
             //Traverse from loop
@@ -714,6 +721,7 @@ static PDML_XDSL_LINE DmlXdlGetLineById(INT LineIndex)
 
     if (LineIndex > pDSL->ulTotalNoofDSLLines)
     {
+	CcspTraceError(("%s - %d : Invalid Index\n", __FUNCTION__, __LINE__));
 	return NULL;
     }
     return pDSL->pXDSLLine + (LineIndex - 1);
@@ -740,6 +748,7 @@ static ANSC_STATUS DmlXdslLineTypeGet( PDML_XDSL_LINE pLine, DML_XDSL_LINE_TYPE 
     }
     else
     {
+	CcspTraceError(("%s - %d : Invalid DSL type\n", __FUNCTION__, __LINE__));
 	ret = ANSC_STATUS_FAILURE;
     }
     pthread_mutex_unlock(&pLine->mDataMutex);
@@ -753,6 +762,7 @@ ANSC_STATUS DmlXdslLineTypeGetById( INT LineIndex, DML_XDSL_LINE_TYPE *LineType 
 
     if (pLine == NULL)
     {
+	CcspTraceError(("%s - %d : Failed to get DSL line Id\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -766,6 +776,7 @@ static ANSC_STATUS DmlXdslConfigureXTMLink( PDML_XDSL_LINE pLine, BOOL bEnable)
 
     if (DmlXdslLineTypeGet(pLine, &LineType) == ANSC_STATUS_FAILURE)
     {
+	CcspTraceError(("%s - %d : Failed to get DSL line type\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -779,6 +790,7 @@ static ANSC_STATUS DmlXdslConfigureXTMLink( PDML_XDSL_LINE pLine, BOOL bEnable)
 	        break;
         default:
 	        ret = ANSC_STATUS_FAILURE;
+		CcspTraceError(("%s - %d : No matches for Line Type\n", __FUNCTION__, __LINE__));
 	        break;
     }
 
@@ -793,11 +805,13 @@ ANSC_STATUS DmlXdslCreateXTMLink( INT LineIndex )
 
     if (pLine == NULL)
     {
+	CcspTraceError(("%s - %d : Failed to get DSL type\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
     if (DmlUpdateXdslStandardUsed(pLine) == ANSC_STATUS_FAILURE)
     {
+	CcspTraceError(("%s Failed to get line StandardUsed value\n", __FUNCTION__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -877,6 +891,7 @@ ANSC_STATUS DmlConfigurePTMLink( PDML_XDSL_LINE pLine , BOOL bEnable )
     pPtm = PTMLink_GetEntry(NULL, iPTMInstance - 1, &iPTMInstance);
     if (PTMLink_GetParamBoolValue(pPtm, "Enable", &isEnabled) != TRUE)
     {
+	CcspTraceError(("%s - %d : PTM Link is not Enabled\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -936,6 +951,7 @@ ANSC_STATUS DmlConfigureATMLink( PDML_XDSL_LINE pLine , BOOL bEnable )
     pAtm = ATMLink_GetEntry(NULL, iATMInstance - 1, &iATMInstance);
     if (ATMLink_GetParamBoolValue(pAtm, "Enable", &isEnabled) != TRUE)
     {
+	CcspTraceError(("%s - %d : ATM Link is not Enabled\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -980,6 +996,7 @@ ANSC_STATUS DmlXdslDeleteXTMLink( INT LineIndex )
 
     if (pLine == NULL)
     {
+	CcspTraceInfo(("%s - %d : Failed to get Line type\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -1053,6 +1070,7 @@ DmlXdslChannelInit
     //Return failure if allocation failiure
     if( NULL == pDSLChannelTmp )
     {
+	CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -1167,6 +1185,7 @@ DmlXdslDiagnosticsInit
     //Return failure if allocation failiure
     if( NULL == pDSLDiagTmp )
     {
+	CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -1203,6 +1222,7 @@ DmlXdslReportInit
     //Return failure if allocation failiure
     if( NULL == pXdslReportTmp )
     {
+	CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -1210,6 +1230,7 @@ DmlXdslReportInit
     //Return failure if allocation failiure
     if( NULL == pXdslReportDfltTmp )
     {
+	CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         AnscFreeMemory(pXdslReportTmp);
         return ANSC_STATUS_FAILURE;
     }
@@ -1252,6 +1273,7 @@ DmlXdslXRdkNlmInit
     //Return failure if allocation failiure
     if( NULL == pDSLXRdkNlmTmp )
     {
+	CcspTraceError(("%s - %d : Memory Allocation Failed\n", __FUNCTION__, __LINE__));
         return ANSC_STATUS_FAILURE;
     }
 
@@ -1289,6 +1311,7 @@ ANSC_STATUS DmlXdslSetLineLinkStatus( INT LineIndex, INT Status)
 
     if (pLine == NULL)
     {
+	CcspTraceError(("%s - %d : Failed to get Line type by ID\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
 
@@ -1305,6 +1328,7 @@ ANSC_STATUS DmlXdslGetLineLinkStatus( INT LineIndex, INT *Status)
 
     if (pLine == NULL)
     {
+	CcspTraceError(("%s - %d : Failed to get Line type by ID\n", __FUNCTION__, __LINE__));
 	return ANSC_STATUS_FAILURE;
     }
     pthread_mutex_lock(&pLine->mDataMutex);
