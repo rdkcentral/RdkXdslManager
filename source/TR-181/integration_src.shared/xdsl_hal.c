@@ -295,6 +295,8 @@ int xdsl_hal_dslGetLineEnable( hal_param_t *req_param )
         return RETURN_ERR;
     }
 
+    CcspTraceInfo(("%s-%d:Got Json response \n = %s \n", __FUNCTION__, __LINE__, json_object_to_json_string_ext(jresponse_msg, JSON_C_TO_STRING_SPACED)));
+
     rc = json_hal_get_param(jresponse_msg, 0, GET_RESPONSE_MESSAGE, &resp_param);
     if (rc != RETURN_OK)
     {
