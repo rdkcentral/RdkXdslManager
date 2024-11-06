@@ -785,6 +785,7 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
     int rc = RETURN_OK;
     char xtseBuf[17]    = { 0 };
     char xtsUsedBuf[17] = { 0 };
+    char *err;
     hal_param_t req_param;
     hal_param_t resp_param;
 
@@ -912,58 +913,58 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
             }
         }
         else if (strstr (resp_param.name, "LastChange")) {
-            pstLineInfo->LastChange = atoi(resp_param.value);
+            pstLineInfo->LastChange = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "PowerManagementState")) {
             pstLineInfo->PowerManagementState = PowerManagementState_string_to_int(resp_param.value);
         }
         else if (strstr (resp_param.name, "UpstreamMaxBitRate")) {
-            pstLineInfo->UpstreamMaxBitRate= atoi(resp_param.value);
+            pstLineInfo->UpstreamMaxBitRate= strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "DownstreamMaxBitRate")) {
-            pstLineInfo->DownstreamMaxBitRate = atoi(resp_param.value);
+            pstLineInfo->DownstreamMaxBitRate = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SuccessFailureCause")) {
-            pstLineInfo->SuccessFailureCause = atoi(resp_param.value);
+            pstLineInfo->SuccessFailureCause = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "RXTHRSHds")) {
             pstLineInfo->RXTHRSHds = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "ACTRAMODEds")) {
-            pstLineInfo->ACTRAMODEds = atoi(resp_param.value);
+            pstLineInfo->ACTRAMODEds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTRAMODEus")) {
-            pstLineInfo->ACTRAMODEus = atoi(resp_param.value);
+            pstLineInfo->ACTRAMODEus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTINPROCds")) {
-            pstLineInfo->ACTINPROCds = atoi(resp_param.value);
+            pstLineInfo->ACTINPROCds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTINPROCus")) {
-            pstLineInfo->ACTINPROCus = atoi(resp_param.value);
+            pstLineInfo->ACTINPROCus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRMROCds")) {
-            pstLineInfo->SNRMROCds = atoi(resp_param.value);
+            pstLineInfo->SNRMROCds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRMROCus")) {
-            pstLineInfo->SNRMROCus = atoi(resp_param.value);
+            pstLineInfo->SNRMROCus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastStateTransmittedDownstream")) {
-            pstLineInfo->LastStateTransmittedDownstream = atoi(resp_param.value);
+            pstLineInfo->LastStateTransmittedDownstream = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastStateTransmittedUpstream")) {
-            pstLineInfo->LastStateTransmittedUpstream = atoi(resp_param.value);
+            pstLineInfo->LastStateTransmittedUpstream = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "UPBOKLER")) {
-            pstLineInfo->UPBOKLER = atoi(resp_param.value);
+            pstLineInfo->UPBOKLER = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "UPBOKLE")) {
-            pstLineInfo->UPBOKLE = atoi(resp_param.value);
+            pstLineInfo->UPBOKLE = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LIMITMASK")) {
-            pstLineInfo->LIMITMASK = atoi(resp_param.value);
+            pstLineInfo->LIMITMASK = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "US0MASK")) {
-            pstLineInfo->US0MASK = atoi(resp_param.value);
+            pstLineInfo->US0MASK = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "UpstreamAttenuation")) {
             pstLineInfo->UpstreamAttenuation = atoi(resp_param.value);
@@ -993,40 +994,40 @@ int xdsl_hal_dslGetLineInfo(int lineNo, PDML_XDSL_LINE pstLineInfo)
             pstLineInfo->TRELLISus = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "ACTSNRMODEds")) {
-            pstLineInfo->ACTSNRMODEds = atoi(resp_param.value);
+            pstLineInfo->ACTSNRMODEds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTSNRMODEus")) {
-            pstLineInfo->ACTSNRMODEus = atoi(resp_param.value);
+            pstLineInfo->ACTSNRMODEus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTUALCE")) {
-            pstLineInfo->ACTUALCE = atoi(resp_param.value);
+            pstLineInfo->ACTUALCE = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LineNumber")) {
             pstLineInfo->LineNumber = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "INMIATOds")) {
-            pstLineInfo->INMIATOds = atoi(resp_param.value);
+            pstLineInfo->INMIATOds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "INMIATSds")) {
-            pstLineInfo->INMIATSds = atoi(resp_param.value);
+            pstLineInfo->INMIATSds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "INMCCds")) {
-            pstLineInfo->INMCCds = atoi(resp_param.value);
+            pstLineInfo->INMCCds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "INMINPEQMODEds")) {
             pstLineInfo->INMINPEQMODEds = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "XTURANSIStd")) {
-            pstLineInfo->XTURANSIStd = atoi(resp_param.value);
+            pstLineInfo->XTURANSIStd = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "XTURANSIRev")) {
-            pstLineInfo->XTURANSIRev = atoi(resp_param.value);
+            pstLineInfo->XTURANSIRev = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "XTUCANSIStd")) {
-            pstLineInfo->XTUCANSIStd = atoi(resp_param.value);
+            pstLineInfo->XTUCANSIStd = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "XTUCANSIRev")) {
-            pstLineInfo->XTUCANSIRev = atoi(resp_param.value);
+            pstLineInfo->XTUCANSIRev = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentProfile")) {
             snprintf(pstLineInfo->CurrentProfile, sizeof(pstLineInfo->CurrentProfile), "%s", resp_param.value);
@@ -1414,6 +1415,7 @@ int xdsl_hal_dslGetLineStats(int lineNo, PDML_XDSL_LINE_STATS pstLineStats)
 {
     int rc = RETURN_OK;
     int total_param_count = 0;
+    char *err;
 
     json_object *jmsg = NULL;
     json_object *jreply_msg = NULL;
@@ -1477,94 +1479,94 @@ int xdsl_hal_dslGetLineStats(int lineNo, PDML_XDSL_LINE_STATS pstLineStats)
         }
 
         if (strstr (resp_param.name, "BytesSent")) {
-            pstLineStats->BytesSent = atol(resp_param.value);
+            pstLineStats->BytesSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "BytesReceived")) {
-            pstLineStats->BytesReceived = atol(resp_param.value);
+            pstLineStats->BytesReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "PacketsSent")) {
             if (strstr (resp_param.name, "DiscardPacketsSent")) {
-                pstLineStats->DiscardPacketsSent = atol(resp_param.value);
+                pstLineStats->DiscardPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else {
-                pstLineStats->PacketsSent= atol(resp_param.value);
+                pstLineStats->PacketsSent= strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "PacketsReceived")) {
             if (strstr (resp_param.name, "DiscardPacketsReceived")) {
-                pstLineStats->DiscardPacketsReceived = atol(resp_param.value);
+                pstLineStats->DiscardPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else {
-                pstLineStats->PacketsReceived = atol(resp_param.value);
+                pstLineStats->PacketsReceived = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "ErrorsSent")) {
-            pstLineStats->ErrorsSent = atol(resp_param.value);
+            pstLineStats->ErrorsSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ErrorsReceived")) {
-            pstLineStats->ErrorsReceived = atol(resp_param.value);
+            pstLineStats->ErrorsReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "TotalStart")) {
-            pstLineStats->TotalStart = atol(resp_param.value);
+            pstLineStats->TotalStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ShowtimeStart")) {
-            pstLineStats->ShowtimeStart = atol(resp_param.value);
+            pstLineStats->ShowtimeStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtimeStart")) {
-            pstLineStats->LastShowtimeStart = atoi(resp_param.value);
+            pstLineStats->LastShowtimeStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHourStart")) {
-            pstLineStats->QuarterHourStart = atol(resp_param.value);
+            pstLineStats->QuarterHourStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDayStart")) {
-            pstLineStats->CurrentDayStart = atol(resp_param.value);
+            pstLineStats->CurrentDayStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.Total.ErroredSecs")) {
-            pstLineStats->stTotal.ErroredSecs = atoi(resp_param.value);
+            pstLineStats->stTotal.ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.Total.SeverelyErroredSecs")) {
-            pstLineStats->stTotal.SeverelyErroredSecs = atoi(resp_param.value);
+            pstLineStats->stTotal.SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.Showtime.ErroredSecs")) {
-            pstLineStats->stShowTime.ErroredSecs = atoi(resp_param.value);
+            pstLineStats->stShowTime.ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.Showtime.SeverelyErroredSecs")) {
-            pstLineStats->stShowTime.SeverelyErroredSecs = atoi(resp_param.value);
+            pstLineStats->stShowTime.SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.LastShowtime.ErroredSecs")) {
-            pstLineStats->stLastShowTime.ErroredSecs = atoi(resp_param.value);
+            pstLineStats->stLastShowTime.ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.LastShowtime.SeverelyErroredSecs")) {
-            pstLineStats->stLastShowTime.SeverelyErroredSecs = atoi(resp_param.value);
+            pstLineStats->stLastShowTime.SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.CurrentDay.ErroredSecs")) {
-            pstLineStats->stCurrentDay.ErroredSecs = atoi(resp_param.value);
+            pstLineStats->stCurrentDay.ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.CurrentDay.SeverelyErroredSecs")) {
-            pstLineStats->stCurrentDay.SeverelyErroredSecs = atoi(resp_param.value);
+            pstLineStats->stCurrentDay.SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "X_RDK_LinkRetrain")) {
             if (strstr (resp_param.name, "Stats.CurrentDay.X_RDK_LinkRetrain")) {
-               pstLineStats->stCurrentDay.X_RDK_LinkRetrain = atoi(resp_param.value);
+               pstLineStats->stCurrentDay.X_RDK_LinkRetrain = strtoull(resp_param.value, &err, 10);
             }
             else {
-               pstLineStats->stQuarterHour.X_RDK_LinkRetrain = atoi(resp_param.value);
+               pstLineStats->stQuarterHour.X_RDK_LinkRetrain = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "Stats.CurrentDay.X_RDK_InitErrors")) {
-            pstLineStats->stCurrentDay.X_RDK_InitErrors = atoi(resp_param.value);
+            pstLineStats->stCurrentDay.X_RDK_InitErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.CurrentDay.X_RDK_InitTimeouts")) {
-            pstLineStats->stCurrentDay.X_RDK_InitTimeouts = atoi(resp_param.value);
+            pstLineStats->stCurrentDay.X_RDK_InitTimeouts = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.CurrentDay.X_RDK_SuccessfulRetrains")) {
             pstLineStats->stCurrentDay.X_RDK_SuccessfulRetrains = g_successful_retrains;
         }
         else if (strstr (resp_param.name, "Stats.QuarterHour.ErroredSecs")) {
-            pstLineStats->stQuarterHour.ErroredSecs = atoi(resp_param.value);
+            pstLineStats->stQuarterHour.ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Stats.QuarterHour.SeverelyErroredSecs")) {
-            pstLineStats->stQuarterHour.SeverelyErroredSecs = atoi(resp_param.value);
+            pstLineStats->stQuarterHour.SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
     }
 
@@ -1580,6 +1582,7 @@ int xdsl_hal_dslGetLineTestParams(int lineNo, PDML_XDSL_LINE_TESTPARAMS pstLineT
 {
     int rc = RETURN_OK;
     int total_param_count = 0;
+    char *err;
 
     json_object *jmsg = NULL;
     json_object *jreply_msg = NULL;
@@ -1641,10 +1644,10 @@ int xdsl_hal_dslGetLineTestParams(int lineNo, PDML_XDSL_LINE_TESTPARAMS pstLineT
         }
 
         if (strstr (resp_param.name, "HLOGGds")) {
-            pstLineTestParams->HLOGGds = atoi(resp_param.value);
+            pstLineTestParams->HLOGGds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "HLOGGus")) {
-            pstLineTestParams->HLOGGus = atoi(resp_param.value);
+            pstLineTestParams->HLOGGus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "HLOGpsds")) {
         snprintf(pstLineTestParams->HLOGpsds, sizeof(pstLineTestParams->HLOGpsds), "%s", resp_param.value);
@@ -1653,16 +1656,16 @@ int xdsl_hal_dslGetLineTestParams(int lineNo, PDML_XDSL_LINE_TESTPARAMS pstLineT
         snprintf(pstLineTestParams->HLOGpsus, sizeof(pstLineTestParams->HLOGpsus), "%s", resp_param.value);
         }
         else if (strstr (resp_param.name, "HLOGMTds")) {
-            pstLineTestParams->HLOGMTds = atoi(resp_param.value);
+            pstLineTestParams->HLOGMTds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "HLOGMTus")) {
-            pstLineTestParams->HLOGMTus = atoi(resp_param.value);
+            pstLineTestParams->HLOGMTus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QLNGds")) {
-            pstLineTestParams->QLNGds = atoi(resp_param.value);
+            pstLineTestParams->QLNGds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QLNGus")) {
-            pstLineTestParams->QLNGus = atoi(resp_param.value);
+            pstLineTestParams->QLNGus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QLNpsds")) {
         snprintf(pstLineTestParams->QLNpsds, sizeof(pstLineTestParams->QLNpsds), "%s", resp_param.value);
@@ -1671,16 +1674,16 @@ int xdsl_hal_dslGetLineTestParams(int lineNo, PDML_XDSL_LINE_TESTPARAMS pstLineT
         snprintf(pstLineTestParams->QLNpsus, sizeof(pstLineTestParams->QLNpsus), "%s", resp_param.value);
         }
         else if (strstr (resp_param.name, "QLNMTds")) {
-            pstLineTestParams->QLNMTds = atoi(resp_param.value);
+            pstLineTestParams->QLNMTds = strtoull(resp_param.value, &err, 10);
        }
         else if (strstr (resp_param.name, "QLNMTus")) {
-            pstLineTestParams->QLNMTus = atoi(resp_param.value);
+            pstLineTestParams->QLNMTus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRGds")) {
-            pstLineTestParams->SNRGds = atoi(resp_param.value);
+            pstLineTestParams->SNRGds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRGus")) {
-            pstLineTestParams->SNRGus = atoi(resp_param.value);
+            pstLineTestParams->SNRGus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRpsds")) {
         snprintf(pstLineTestParams->SNRpsds, sizeof(pstLineTestParams->SNRpsds), "%s", resp_param.value);
@@ -1689,10 +1692,10 @@ int xdsl_hal_dslGetLineTestParams(int lineNo, PDML_XDSL_LINE_TESTPARAMS pstLineT
         snprintf(pstLineTestParams->SNRpsus, sizeof(pstLineTestParams->SNRpsus), "%s", resp_param.value);
         }
         else if (strstr (resp_param.name, "SNRMTds")) {
-            pstLineTestParams->SNRMTds = atoi(resp_param.value);
+            pstLineTestParams->SNRMTds = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "SNRMTus")) {
-            pstLineTestParams->SNRMTus = atoi(resp_param.value);
+            pstLineTestParams->SNRMTus = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LATNds")) {
         snprintf(pstLineTestParams->LATNds, sizeof(pstLineTestParams->LATNds), "%s", resp_param.value);
@@ -1727,6 +1730,7 @@ int xdsl_hal_dslGetChannelInfo(int channelNo, PDML_XDSL_CHANNEL pstChannelInfo)
 {
     int rc = RETURN_OK;
     int total_param_count = 0;
+    char *err;
 
     hal_param_t req_param;
     hal_param_t resp_param;
@@ -1824,19 +1828,19 @@ int xdsl_hal_dslGetChannelInfo(int channelNo, PDML_XDSL_CHANNEL pstChannelInfo)
             pstChannelInfo->Enable = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "LastChange")) {
-            pstChannelInfo->LastChange = atoi(resp_param.value);
+            pstChannelInfo->LastChange = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LPATH")) {
-            pstChannelInfo->LPATH = atoi(resp_param.value);
+            pstChannelInfo->LPATH = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "INTLVDEPTH")) {
-            pstChannelInfo->INTLVDEPTH = atoi(resp_param.value);
+            pstChannelInfo->INTLVDEPTH = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "INTLVBLOCK")) {
             pstChannelInfo->INTLVBLOCK = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "ActualInterleavingDelay")) {
-            pstChannelInfo->ActualInterleavingDelay = atoi(resp_param.value);
+            pstChannelInfo->ActualInterleavingDelay = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTINP")) {
             pstChannelInfo->ACTINP = atoi(resp_param.value);
@@ -1854,16 +1858,16 @@ int xdsl_hal_dslGetChannelInfo(int channelNo, PDML_XDSL_CHANNEL pstChannelInfo)
             pstChannelInfo->LSYMB = atoi(resp_param.value);
         }
         else if (strstr (resp_param.name, "UpstreamCurrRate")) {
-            pstChannelInfo->UpstreamCurrRate = atoi(resp_param.value);
+            pstChannelInfo->UpstreamCurrRate = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "DownstreamCurrRate")) {
-            pstChannelInfo->DownstreamCurrRate = atoi(resp_param.value);
+            pstChannelInfo->DownstreamCurrRate = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTNDR")) {
-            pstChannelInfo->ACTNDR = atoi(resp_param.value);
+            pstChannelInfo->ACTNDR = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ACTINPREIN")) {
-            pstChannelInfo->ACTINPREIN = atoi(resp_param.value);
+            pstChannelInfo->ACTINPREIN = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LinkEncapsulationSupported")) {
             snprintf(pstChannelInfo->LinkEncapsulationSupported, sizeof(pstChannelInfo->LinkEncapsulationSupported), "%s", resp_param.value);
@@ -1885,6 +1889,7 @@ int xdsl_hal_dslGetChannelStats(int channelNo, PDML_XDSL_CHANNEL_STATS pstChanne
 {
     int rc = RETURN_OK;
     int total_param_count = 0;
+    char *err;
 
     json_object *jmsg = NULL;
     json_object *jparams = NULL;
@@ -1948,157 +1953,157 @@ int xdsl_hal_dslGetChannelStats(int channelNo, PDML_XDSL_CHANNEL_STATS pstChanne
         }
 
         if (strstr (resp_param.name, "BytesSent")) {
-            pstChannelStats->BytesSent = atol(resp_param.value);
+            pstChannelStats->BytesSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "BytesReceived")) {
-            pstChannelStats->BytesReceived = atol(resp_param.value);
+            pstChannelStats->BytesReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "PacketsSent")) {
             if (strstr (resp_param.name, "DiscardPacketsSent")) {
-                pstChannelStats->DiscardPacketsSent = atol(resp_param.value);
+                pstChannelStats->DiscardPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else {
-                pstChannelStats->PacketsSent= atol(resp_param.value);
+                pstChannelStats->PacketsSent = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "PacketsReceived")) {
             if (strstr (resp_param.name, "DiscardPacketsReceived")) {
-                pstChannelStats->DiscardPacketsReceived = atol(resp_param.value);
+                pstChannelStats->DiscardPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else {
-                pstChannelStats->PacketsReceived = atol(resp_param.value);
+                pstChannelStats->PacketsReceived = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "ErrorsSent")) {
-            pstChannelStats->ErrorsSent = atol(resp_param.value);
+            pstChannelStats->ErrorsSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ErrorsReceived")) {
-            pstChannelStats->ErrorsReceived = atol(resp_param.value);
+            pstChannelStats->ErrorsReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "TotalStart")) {
-            pstChannelStats->TotalStart = atol(resp_param.value);
+            pstChannelStats->TotalStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "ShowtimeStart")) {
-            pstChannelStats->ShowtimeStart = atol(resp_param.value);
+            pstChannelStats->ShowtimeStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtimeStart")) {
-            pstChannelStats->LastShowtimeStart = atoi(resp_param.value);
+            pstChannelStats->LastShowtimeStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHourStart")) {
-            pstChannelStats->QuarterHourStart = atol(resp_param.value);
+            pstChannelStats->QuarterHourStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDayStart")) {
-            pstChannelStats->CurrentDayStart = atol(resp_param.value);
+            pstChannelStats->CurrentDayStart = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTURFECErrors")) {
-            pstChannelStats->stTotal.XTURFECErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTURFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTUCFECErrors")) {
-            pstChannelStats->stTotal.XTUCFECErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTUCFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTURHECErrors")) {
-            pstChannelStats->stTotal.XTURHECErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTURHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTUCHECErrors")) {
-            pstChannelStats->stTotal.XTUCHECErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTUCHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTURCRCErrors")) {
-            pstChannelStats->stTotal.XTURCRCErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTURCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Total.XTUCCRCErrors")) {
-            pstChannelStats->stTotal.XTUCCRCErrors = atol(resp_param.value);
+            pstChannelStats->stTotal.XTUCCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTURFECErrors")) {
-            pstChannelStats->stShowTime.XTURFECErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTURFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTUCFECErrors")) {
-            pstChannelStats->stShowTime.XTUCFECErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTUCFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTURHECErrors")) {
-            pstChannelStats->stShowTime.XTURHECErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTURHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTUCHECErrors")) {
-            pstChannelStats->stShowTime.XTUCHECErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTUCHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTURCRCErrors")) {
-            pstChannelStats->stShowTime.XTURCRCErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTURCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "Showtime.XTUCCRCErrors")) {
-            pstChannelStats->stShowTime.XTUCCRCErrors = atol(resp_param.value);
+            pstChannelStats->stShowTime.XTUCCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTURFECErrors")) {
-            pstChannelStats->stLastShowTime.XTURFECErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTURFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTUCFECErrors")) {
-            pstChannelStats->stLastShowTime.XTUCFECErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTUCFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTURHECErrors")) {
-            pstChannelStats->stLastShowTime.XTURHECErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTURHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTUCHECErrors")) {
-            pstChannelStats->stLastShowTime.XTUCHECErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTUCHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTURCRCErrors")) {
-            pstChannelStats->stLastShowTime.XTURCRCErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTURCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "LastShowtime.XTUCCRCErrors")) {
-            pstChannelStats->stLastShowTime.XTUCCRCErrors = atol(resp_param.value);
+            pstChannelStats->stLastShowTime.XTUCCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTURFECErrors")) {
-            pstChannelStats->stCurrentDay.XTURFECErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTURFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTUCFECErrors")) {
-            pstChannelStats->stCurrentDay.XTUCFECErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTUCFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTURHECErrors")) {
-            pstChannelStats->stCurrentDay.XTURHECErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTURHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTUCHECErrors")) {
-            pstChannelStats->stCurrentDay.XTUCHECErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTUCHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTURCRCErrors")) {
-            pstChannelStats->stCurrentDay.XTURCRCErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTURCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.XTUCCRCErrors")) {
-            pstChannelStats->stCurrentDay.XTUCCRCErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.XTUCCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "X_RDK_LinkRetrain")) {
             if (strstr (resp_param.name, "CurrentDay.X_RDK_LinkRetrain")) {
-               pstChannelStats->stCurrentDay.X_RDK_LinkRetrain = atoi(resp_param.value);
+               pstChannelStats->stCurrentDay.X_RDK_LinkRetrain = strtoull(resp_param.value, &err, 10);
             }
             else {
-               pstChannelStats->stQuarterHour.X_RDK_LinkRetrain = atoi(resp_param.value);
+               pstChannelStats->stQuarterHour.X_RDK_LinkRetrain = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr (resp_param.name, "CurrentDay.X_RDK_InitErrors")) {
-            pstChannelStats->stCurrentDay.X_RDK_InitErrors = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.X_RDK_InitErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.X_RDK_InitTimeouts")) {
-            pstChannelStats->stCurrentDay.X_RDK_InitTimeouts = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.X_RDK_InitTimeouts = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.X_RDK_SeverelyErroredSecs")) {
-            pstChannelStats->stCurrentDay.X_RDK_SeverelyErroredSecs = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.X_RDK_SeverelyErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "CurrentDay.X_RDK_ErroredSecs")) {
-            pstChannelStats->stCurrentDay.X_RDK_ErroredSecs = atol(resp_param.value);
+            pstChannelStats->stCurrentDay.X_RDK_ErroredSecs = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTURFECErrors")) {
-            pstChannelStats->stQuarterHour.XTURFECErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTURFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTUCFECErrors")) {
-            pstChannelStats->stQuarterHour.XTUCFECErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTUCFECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTURHECErrors")) {
-            pstChannelStats->stQuarterHour.XTURHECErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTURHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTUCHECErrors")) {
-            pstChannelStats->stQuarterHour.XTUCHECErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTUCHECErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTURCRCErrors")) {
-            pstChannelStats->stQuarterHour.XTURCRCErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTURCRCErrors = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr (resp_param.name, "QuarterHour.XTUCCRCErrors")) {
-            pstChannelStats->stQuarterHour.XTUCCRCErrors = atol(resp_param.value);
+            pstChannelStats->stQuarterHour.XTUCCRCErrors = strtoull(resp_param.value, &err, 10);
         }
     }
 
@@ -2447,6 +2452,7 @@ static ANSC_STATUS get_ptm_link_stats(const json_object *reply_msg, PDML_PTM_STA
 {
     ANSC_STATUS rc = ANSC_STATUS_SUCCESS;
     int total_param_count = 0;
+    char *err;
 
     total_param_count = json_hal_get_total_param_count(reply_msg);
     hal_param_t resp_param;
@@ -2464,69 +2470,69 @@ static ANSC_STATUS get_ptm_link_stats(const json_object *reply_msg, PDML_PTM_STA
 
         if (strstr(resp_param.name, "BytesSent"))
         {
-            link_stats->BytesSent = atol(resp_param.value);
+            link_stats->BytesSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "BytesReceived"))
         {
-            link_stats->BytesReceived = atol(resp_param.value);
+            link_stats->BytesReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "PacketsSent"))
         {
             if (strstr(resp_param.name, "Unicast"))
             {
-                link_stats->UnicastPacketsSent = atol(resp_param.value);
+                link_stats->UnicastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Discard"))
             {
-                link_stats->DiscardPacketsSent = atoi(resp_param.value);
+                link_stats->DiscardPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Multicast"))
             {
-                link_stats->MulticastPacketsSent = atol(resp_param.value);
+                link_stats->MulticastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Broadcast"))
             {
-                link_stats->BroadcastPacketsSent = atol(resp_param.value);
+                link_stats->BroadcastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else
             {
-                link_stats->PacketsSent = atol(resp_param.value);
+                link_stats->PacketsSent = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr(resp_param.name, "PacketsReceived"))
         {
             if (strstr(resp_param.name, "Unicast"))
             {
-                link_stats->UnicastPacketsReceived = atol(resp_param.value);
+                link_stats->UnicastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Discard"))
             {
-                link_stats->DiscardPacketsReceived = atoi(resp_param.value);
+                link_stats->DiscardPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Multicast"))
             {
-                link_stats->MulticastPacketsReceived = atol(resp_param.value);
+                link_stats->MulticastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Broadcast"))
             {
-                link_stats->BroadcastPacketsReceived = atol(resp_param.value);
+                link_stats->BroadcastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "UnknownProto"))
             {
-                link_stats->UnknownProtoPacketsReceived = atoi(resp_param.value);
+                link_stats->UnknownProtoPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else
             {
-                link_stats->PacketsReceived = atol(resp_param.value);
+                link_stats->PacketsReceived = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr(resp_param.name, "ErrorsSent"))
         {
-            link_stats->ErrorsSent = atoi(resp_param.value);
+            link_stats->ErrorsSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "ErrorsReceived"))
         {
-            link_stats->ErrorsReceived = atoi(resp_param.value);
+            link_stats->ErrorsReceived = strtoull(resp_param.value, &err, 10);
         }
     }
 
@@ -3050,6 +3056,7 @@ static ANSC_STATUS get_atm_link_stats(const json_object *reply_msg, PDML_ATM_STA
 {
     ANSC_STATUS rc = ANSC_STATUS_SUCCESS;
     int total_param_count = 0;
+    char *err;
 
     total_param_count = json_hal_get_total_param_count(reply_msg);
     hal_param_t resp_param;
@@ -3067,69 +3074,69 @@ static ANSC_STATUS get_atm_link_stats(const json_object *reply_msg, PDML_ATM_STA
 
         if (strstr(resp_param.name, "BytesSent"))
         {
-            link_stats->BytesSent = atol(resp_param.value);
+            link_stats->BytesSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "BytesReceived"))
         {
-            link_stats->BytesReceived = atol(resp_param.value);
+            link_stats->BytesReceived = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "PacketsSent"))
         {
             if (strstr(resp_param.name, "Unicast"))
             {
-                link_stats->UnicastPacketsSent = atol(resp_param.value);
+                link_stats->UnicastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Discard"))
             {
-                link_stats->DiscardPacketsSent = atoi(resp_param.value);
+                link_stats->DiscardPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Multicast"))
             {
-                link_stats->MulticastPacketsSent = atol(resp_param.value);
+                link_stats->MulticastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Broadcast"))
             {
-                link_stats->BroadcastPacketsSent = atol(resp_param.value);
+                link_stats->BroadcastPacketsSent = strtoull(resp_param.value, &err, 10);
             }
             else
             {
-                link_stats->PacketsSent = atol(resp_param.value);
+                link_stats->PacketsSent = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr(resp_param.name, "PacketsReceived"))
         {
             if (strstr(resp_param.name, "Unicast"))
             {
-                link_stats->UnicastPacketsReceived = atol(resp_param.value);
+                link_stats->UnicastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Discard"))
             {
-                link_stats->DiscardPacketsReceived = atoi(resp_param.value);
+                link_stats->DiscardPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Multicast"))
             {
-                link_stats->MulticastPacketsReceived = atol(resp_param.value);
+                link_stats->MulticastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "Broadcast"))
             {
-                link_stats->BroadcastPacketsReceived = atol(resp_param.value);
+                link_stats->BroadcastPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else if (strstr(resp_param.name, "UnknownProto"))
             {
-                link_stats->UnknownProtoPacketsReceived = atoi(resp_param.value);
+                link_stats->UnknownProtoPacketsReceived = strtoull(resp_param.value, &err, 10);
             }
             else
             {
-                link_stats->PacketsReceived = atol(resp_param.value);
+                link_stats->PacketsReceived = strtoull(resp_param.value, &err, 10);
             }
         }
         else if (strstr(resp_param.name, "ErrorsSent"))
         {
-            link_stats->ErrorsSent = atoi(resp_param.value);
+            link_stats->ErrorsSent = strtoull(resp_param.value, &err, 10);
         }
         else if (strstr(resp_param.name, "ErrorsReceived"))
         {
-            link_stats->ErrorsReceived = atoi(resp_param.value);
+            link_stats->ErrorsReceived = strtoull(resp_param.value, &err, 10);
         }
     }
 
