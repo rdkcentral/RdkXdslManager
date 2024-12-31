@@ -34,3 +34,4 @@ xdslmanager_CFLAGS = -DFEATURE_SUPPORT_RDKLOG $(DBUS_CFLAGS) $(SYSTEMD_CFLAGS)
 xdslmanager_SOURCES = apis_xdslmanagerplugin.c ssp_action.c ssp_messagebus_interface.c ssp_main.c
 xdslmanager_LDFLAGS = -lccsp_common -lrdkloggers -lcm_mgnt -lsyscfg -lbreakpadwrapper $(DBUS_LIBS) $(SYSTEMD_LDFLAGS)
 xdslmanager_LDADD = $(xdslmanager_DEPENDENCIES)
+xdslmanager_CFLAGS += -DGIT_VERSION=\"$(GIT_VERSION)\"

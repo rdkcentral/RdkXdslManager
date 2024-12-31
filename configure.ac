@@ -44,6 +44,12 @@ AC_ARG_ENABLE([gtestapp],
              [echo "Gtestapp is disabled"])
 AM_CONDITIONAL([WITH_GTEST_SUPPORT], [test x$GTEST_SUPPORT_ENABLED = xtrue])
 
+#Add git version
+m4_define([GITVERSION],
+  m4_esyscmd_s([git describe --tags --always --dirty 2>/dev/null || echo "undefined"])
+)
+AC_SUBST([GIT_VERSION], [GITVERSION])
+
 dnl subdirectories.
 SUBDIRS=""
 
