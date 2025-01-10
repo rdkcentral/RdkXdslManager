@@ -352,11 +352,10 @@ ANSC_STATUS DmlXdslLineSetEnable( INT LineIndex, BOOL Enable )
     memset(&req_param, 0, sizeof(req_param));
     snprintf(req_param.name, sizeof(req_param), XDSL_LINE_ENABLE, LineIndex);
     if ( Enable )
-        snprintf(req_param.value, sizeof(req_param.value), "%s", "1");
+        snprintf(req_param.value, sizeof(req_param.value), "%s", "TRUE");
     else
-        snprintf(req_param.value, sizeof(req_param.value), "%s", "0");
-    //req_param.type = PARAM_BOOLEAN;
-    req_param.type = PARAM_STRING;
+        snprintf(req_param.value, sizeof(req_param.value), "%s", "FALSE");
+    req_param.type = PARAM_BOOLEAN;
 
     //Set enable/disable
     if ( RETURN_OK != xdsl_hal_dslSetLineEnable( &req_param ) )
