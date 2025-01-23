@@ -230,6 +230,7 @@ AtmLinkInitialize
     CHAR param_name[256] = {0};
     CHAR *param_value = NULL;
     int retPsmGet;
+    char *err;
 
     pAtm->ulAtmLinkNumberOfEntries = DmlXdslGetTotalNoofLines(); 
     pAtm->AtmLink = (PDML_ATM)AnscAllocateMemory(sizeof(DML_ATM) * pAtm->ulAtmLinkNumberOfEntries);
@@ -403,7 +404,7 @@ AtmLinkInitialize
 	retPsmGet = PSM_Get_Record_Value2(bus_handle, g_Subsystem, param_name, NULL, &param_value);
 	if (retPsmGet == CCSP_SUCCESS && param_value != NULL)
 	{
-	    pAtmLink->Qos.PeakCellRate = atoi(param_value);
+	    pAtmLink->Qos.PeakCellRate = strtoull(param_value, &err, 10);
 	    ((CCSP_MESSAGE_BUS_INFO *)bus_handle)->freefunc(param_value);
 	}
 
@@ -412,7 +413,7 @@ AtmLinkInitialize
 	retPsmGet = PSM_Get_Record_Value2(bus_handle, g_Subsystem, param_name, NULL, &param_value);
 	if (retPsmGet == CCSP_SUCCESS && param_value != NULL)
 	{
-	    pAtmLink->Qos.MaximumBurstSize = atoi(param_value);
+	    pAtmLink->Qos.MaximumBurstSize = strtoull(param_value, &err, 10);
 	    ((CCSP_MESSAGE_BUS_INFO *)bus_handle)->freefunc(param_value);
 	}
 
@@ -421,7 +422,7 @@ AtmLinkInitialize
 	retPsmGet = PSM_Get_Record_Value2(bus_handle, g_Subsystem, param_name, NULL, &param_value);
 	if (retPsmGet == CCSP_SUCCESS && param_value != NULL)
 	{
-	    pAtmLink->Qos.SustainableCellRate = atoi(param_value);
+	    pAtmLink->Qos.SustainableCellRate = strtoull(param_value, &err, 10);
 	    ((CCSP_MESSAGE_BUS_INFO *)bus_handle)->freefunc(param_value);
 	}
 
