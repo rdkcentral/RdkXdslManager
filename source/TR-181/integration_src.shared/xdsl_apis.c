@@ -299,12 +299,15 @@ static ANSC_STATUS DmlXdslSetLineInfo( INT LineIndex)
 {
     char fName[ANSC_MAX_STRING_SIZE] = {0} , Model[ANSC_MAX_STRING_SIZE] = {0}, Serial[ANSC_MAX_STRING_SIZE] = {0};
 
-    if (platform_hal_GetSerialNumber(Serial) == RETURN_OK )
+    if ((platform_hal_GetSerialNumber(Serial) == RETURN_OK ) &&
+        (strlen(Serial) > 0))
     {
         /* collect value*/
-        if (platform_hal_GetFirmwareName(fName, ANSC_MAX_STRING_SIZE) == RETURN_OK )
+        if ((platform_hal_GetFirmwareName(fName, ANSC_MAX_STRING_SIZE) == RETURN_OK )
+           (strlen(fName) > 0))
         {
-            if (platform_hal_GetModelName(Model) == RETURN_OK )
+            if ((platform_hal_GetModelName(Model) == RETURN_OK )
+                (strlen(Model) > 0))
             {
                 hal_param_t set_param;
 
