@@ -305,11 +305,11 @@ static ANSC_STATUS DmlXdslSetLineInfo( INT LineIndex)
     {
         CcspTraceError(("%s - %d : Serial=%s \n", __FUNCTION__, __LINE__, Serial));
         /* collect value*/
-        if ((platform_hal_GetFirmwareName(fName, ANSC_MAX_STRING_SIZE) == RETURN_OK )
+        if ((platform_hal_GetFirmwareName(fName, ANSC_MAX_STRING_SIZE) == RETURN_OK ) &&
            (strlen(fName) > 0))
         {
             CcspTraceError(("%s - %d : fName=%s \n", __FUNCTION__, __LINE__, fName));
-            if ((platform_hal_GetModelName(Model) == RETURN_OK )
+            if ((platform_hal_GetModelName(Model) == RETURN_OK ) &&
                 (strlen(Model) > 0))
             {
                 CcspTraceError(("%s - %d : Model=%s\n", __FUNCTION__, __LINE__, Model));
