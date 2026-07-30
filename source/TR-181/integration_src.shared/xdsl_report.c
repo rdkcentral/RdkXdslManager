@@ -31,6 +31,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 **********************************************************************/
+#define _GNU_SOURCE
 
 #include "ssp_global.h"
 #include "stdlib.h"
@@ -39,6 +40,8 @@
 #include "xdsl_apis.h"
 #include "xdsl_report.h"
 #include "xdsl_hal.h"
+#include <malloc.h>
+#include <stdlib.h>//system
 
 char *rt_schema_buffer = NULL;
 
@@ -79,6 +82,7 @@ static uint8_t RT_UUID[16] = {0xc3,0x93,0x4a,0xec,0x72,0x3e,0x4c,0x98,
 char * XdslReportSchemaID = "c3934aec-723e-4c98-88b5-aa02931d5de5/61bd110e2971f6a61f5c2c6ff41b18b1";
 
 #define DEFAULT_WAIT_TIME_1_SEC 1
+#define EVERY_N_REPORT 100
 
 /*
  * Returns the size of Schema contents
@@ -1078,6 +1082,7 @@ static int PrepareAndSendXdslReport()
     INT link_status;
     INT iTotalLines = 0;
     INT iTotalChannels = 0;
+    static int report_count = 0;
 
     iTotalLines = DmlXdslGetTotalNoofLines( );
     if (iTotalLines > 1)
@@ -1116,6 +1121,18 @@ static int PrepareAndSendXdslReport()
         {
             CcspTraceError(("harvester_report_Xdsl returned error [%d] \n", ret));
         }
+
+	// Reclam unused heap spaceperiodically to mitigate heap fragmentation
+	report_count++;
+	if(0 == (report_count % EVERY_N_REPORT))
+	{
+	   CcspTraceInfo(("Calling malloc_trim() to reclaim fragmented heap - Monitoring!!!!!!!\n"));
+	   #if 0
+	   malloc_trim(0);
+	   #endif
+	   report_count = 0;
+	}
+
         return ret;
     }
     else{
@@ -1172,8 +1189,10 @@ static void *StartXdslReporting()
                 {
                     CurrentOverrideReportingPeriod = CurrentOverrideReportingPeriod + uOverrideReportingPeriod;
                     CcspTraceInfo(("CurrentOverrideReportingPeriod[%ld]\n", CurrentOverrideReportingPeriod));
+		    system("touch /tmp/xdl_one.txt");
+		    #if 0
                     ret = PrepareAndSendXdslReport();
-		    
+		    #endif
 		    /*
 		     * Needs to get current reporting period. Because in between if there any changes happen then
                      * it would have not updated after report 
@@ -1187,7 +1206,10 @@ static void *StartXdslReporting()
         {
             if (uDftReportingPeriod != 0)
             {
+		system("touch /tmp/xdl_two.txt");
+		#if 0
                 ret = PrepareAndSendXdslReport();
+ 		#endif
                 waitingTimePeriod = uDftReportingPeriod;
 
 		//We need to overwrite Waitingtime when overrideTTL value set case.
